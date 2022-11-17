@@ -10,7 +10,7 @@
   
   ><img width="20" src="https://imgur.com/rzRlaDz.png" alt="Icon Image">〘 Finish Setting up Remote Enviornment 〙
   
-  ><img width="20" src="https://imgur.com/rzRlaDz.png" alt="Icon Image">〘 Create a Skeleton for the Intervention Page (Mix of JS/HTML/PHP 〙
+  ><img width="20" src="https://imgur.com/rzRlaDz.png" alt="Icon Image">〘 Create a Skeleton for the Intervention Page (Mix of JS/HTML/PHP) 〙
   
   ><img width="20" src="https://imgur.com/rzRlaDz.png" alt="Icon Image">〘 Keep working on Star Rating and Number line 〙
   
