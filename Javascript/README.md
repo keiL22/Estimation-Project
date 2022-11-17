@@ -6,14 +6,3 @@
     include the randomization of questions, modal pop up, and all 
     other logic needed
 ------
-- `ᴛᴏᴅᴏ ʟɪsᴛ`
-  
-  ><img width="20" src="https://imgur.com/rzRlaDz.png" alt="Icon Image">〘 ᴛʏᴘᴇ ʜᴇʀᴇ 〙
-  
-  ><img width="20" src="https://imgur.com/rzRlaDz.png" alt="Icon Image">〘 ᴛʏᴘᴇ ʜᴇʀᴇ 〙
-  
-  ><img width="20" src="https://imgur.com/rzRlaDz.png" alt="Icon Image">〘 ᴛʏᴘᴇ ʜᴇʀᴇ 〙
-  
-  ><img width="20" src="https://imgur.com/rzRlaDz.png" alt="Icon Image">〘 ᴛʏᴘᴇ ʜᴇʀᴇ 〙
-
-------
