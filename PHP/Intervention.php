@@ -35,7 +35,7 @@
 			$questionAmount = mysqli_num_rows($result);
 			setcookie("Question_Amount", $questionAmount, time() + (86400 * 30), "/PHP");
 
-			$sql="Select `QuestionID`,`Question`,`Hint`,`AnswerUnit`,`AnswerType`,`RangeMin`,`RangeMax` from `Questions` where `QuestionID` like '%$currentQuestion%'";
+			$sql="Select `QuestionID`,`Question`,`Hint`,`AnswerStatement`,`Explanation`,`AnswerUnit`,`AnswerType`,`RangeMin`,`RangeMax` from `Questions` where `QuestionID` like '%$currentQuestion%'";
 			$result= $dblink->query($sql)  or
 				die("Something went wrong with $sql<br>".$dblink >error);
 
@@ -43,8 +43,8 @@
 
 			echo "<dialog class='modal-box' id='modal'>";
 				echo "<br><h2>Star Rating Here</h2><br><hr>";
-				echo "<p>Question Answer here</p><br>";
-				echo "<p>Question Explanation here </p><br><hr>";
+				echo "<p>".$row['AnswerStatement']."</p><br>";
+				echo "<p>".$row['Explanation']."</p><br><hr>";
 				echo "<p>Number Line here</p><br><hr>";
 				echo "<button class='button close-button'>Next Question</button>";
 			echo "</dialog>";
@@ -53,21 +53,28 @@
 
 			echo $row['Question'];
 			echo "<form method='post' id='inputForm'>";
-				echo "<label for='user_answer'> Answer </label>";
+				echo "<br><label for='user_answer'> Answer ( In ".$row['AnswerUnit']." ) </label>";
 				echo "<input type='text' id='user_answer' name='user_answer'>";
 				if (!empty($row['AnswerType'])){
 					echo "<select name='answer_select' id='answer_select'>";
-						echo "<option value='increase'>Increase</option>";
-						echo "<option value='increase'>Decrease</option>";
+						echo "<option value='Increase'>Increase</option>";
+						echo "<option value='Decrease'>Decrease</option>";
 					echo "</select>";
 				}
 				if (is_array($_POST) && !empty($_POST)) {
 					if(isset($_POST['user_answer'])){
+						
 						if(is_numeric($_POST['user_answer'])){
 							if($_POST['user_answer']>=$row['RangeMin']&&$_POST['user_answer']<=$row['RangeMax']){
 								$userAnswer=$_POST['user_answer'];
-								$cookieName = "Question_$currentQuestion";
-								setcookie($cookieName, $userAnswer, time() + (86400 * 30), "/PHP");
+								$QuestionCookie = "Question_$currentQuestion";
+								$TypeCookie = "Question_".$currentQuestion."_Type";
+								setcookie($QuestionCookie, $userAnswer, time() + (86400 * 30), "/PHP");
+								if (!empty($row['AnswerType'])){
+									setcookie($TypeCookie, $_POST['answer_select'], time() + (86400 * 30), "/PHP");
+								}else{
+									setcookie($TypeCookie, "NULL", time() + (86400 * 30), "/PHP");
+								}
 								echo "<script modal src='../Javascript/OpenModal.js'></script>";
 							}else{
 								echo "<br><br>Please a value from ".$row['RangeMin']." to ".$row['RangeMax'];
