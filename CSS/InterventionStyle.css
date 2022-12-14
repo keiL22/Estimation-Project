@@ -1,9 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;600&display=swap');
 
+:root{
+    --color-background: rgb(173, 216, 230);
+    --color-box: white;
+
+    --color-star-on: rgb(253, 204, 13);
+    --color-star-off:  rgb(209, 209, 209);
+	--color-accent: #7598BE;
+
+    --font-family: 'Mitr', sans-serif;
+	--font-weight1: 300;
+    --font-weight2: 400;
+	--font-weight3: 600;
+	--font-size0: 15px;
+	--font-size1: 18px;
+    --font-size2: 20px;
+	--font-size3: 30px;
+}
+
 body{
-	font-family: 'Mitr', sans-serif;
-	font-size: 18px;
-	font-weight: 300;
+	font-family: var(--font-family);
+	font-size: var(--font-size1);
+	font-weight: var(--font-weight1);
 	margin: 0;
 	background-color: #B1D5FD;
 }
@@ -26,8 +44,8 @@ body{
 
 .box h2{
 
-	font-size: 30px;
-	font-weight: 600;
+	font-size: var(--font-size3);
+	font-weight: var(--font-weight3);
 	text-align: center;
 	text-shadow: 0 0 3px #7598BE, 0 0 3px #7598BE,
 			 0 0 3px #7598BE, 0 0 3px #7598BE,
@@ -54,16 +72,13 @@ body{
 button{
 
 	font-family: 'Mitr', sans-serif;
-	font-size: 15px;
-	font-weight: 600;
+	font-size: 14px;
+	font-weight: var(--font-weight3);
 	color: #87B0E0;
 	text-transform: uppercase;
 	text-align: center;
 
-	background-color: #9BC3F1;
-	background-image: linear-gradient(to right, #FFFFFF 50%, transparent 50%);
-	background-size: 200%;
-	background-position: 0%;
+	background-color: #fff;
 
 	margin: 0px 118px;
 	padding: 20px 50px;
@@ -73,16 +88,13 @@ button{
 }
 input[type=submit] {
     font-family: 'Mitr', sans-serif;
-	font-size: 15px;
-	font-weight: 600;
+	font-size: 14px;
+	font-weight: var(--font-weight3);
 	color: #87B0E0;
 	text-transform: uppercase;
 	text-align: center;
 
-	background-color: #9BC3F1;
-	background-image: linear-gradient(to right, #FFFFFF 50%, transparent 50%);
-	background-size: 200%;
-	background-position: 0%;
+	background-color: #FFF;
 
 	margin: 0px 118px;
 	padding: 20px 50px;
@@ -92,18 +104,212 @@ input[type=submit] {
 }
 input[type=submit]:hover {
 	color: #FFFFFF;
-	background-position: 100%;
+	background-color: #9BC3F1;
 	cursor: pointer;
 }
 button:hover{
 	color: #FFFFFF;
-	background-position: 100%;
+	background-color: #9BC3F1;
 	cursor: pointer;
 }
 
 .modal-box {
 	margin: 80px auto;
 	padding: 20px;
-	max-width: 550px;
+	max-width: 500px;
+	min-width: 500px;
 	border-radius: 20px;
+}
+
+.answer-statement{
+	text-align: center;
+	font-family: var(--font-family);
+	font-size: var(--font-size2);
+	font-weight: var(--font-weight2);
+	color: var(--color-accent);
+}
+
+.answer-explanation{
+	text-align: center;
+	font-family: var(--font-family);
+	font-size: var(--font-size1);
+	font-weight: var(--font-weight1);
+}
+
+
+.star-rating{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.star-box{
+    text-align: center;
+    text-transform: uppercase;
+    font-family: var(--font-family);
+    font-weight: var(--font-weight2);
+    font-size: var(--font-size2);
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.star-list{
+    padding: 0px;
+    list-style-type: none;
+}
+
+.star{
+    color: transparent;  
+    text-shadow: 0 0 0 var(--color-star-off);
+    scale: 2;
+    margin: 20px 20px 40px 20px;
+    justify-content: center;
+    align-items: center;
+    display: inline-block;
+
+    transition: all ease-in-out .5s;
+}
+
+.star-on{ 
+    transition: all ease-in-out .5s;
+    animation-name: starScale;
+    animation-timing-function: ease-in-out; 
+    animation-fill-mode: forwards;
+	animation-duration: 0.8s;
+}
+
+#star-one{
+    animation-delay: 0.0s;
+}
+#star-two{
+    animation-delay: 0.2s;
+}
+#star-three{
+    animation-delay: 0.4s;
+}
+#star-four{
+    animation-delay: 0.6s;
+}
+#star-five{
+    animation-delay: 0.8s;
+}
+
+@keyframes starScale {
+    0%{
+        text-shadow: 0 0 0 var(--color-star-on);
+        scale: 2.0;
+    }
+    50%{
+        text-shadow: 0 0 0 var(--color-star-on);
+        scale: 2.5;
+    }
+    100%{
+        text-shadow: 0 0 0 var(--color-star-on);
+        scale: 2.0;
+    }
+}
+
+.skill-bars{
+	margin: 10px auto;
+	max-width: 330px;
+}
+
+.skill-bars .bar .progress-line{
+  height: 10px;
+  width: 100%;
+  background: #f0f0f0;
+  position: relative;
+  transform-origin: left;
+  border-radius: 10px;
+  
+}
+
+.user-answer{
+	height: 100%;
+	position: absolute;
+	border-radius: 10px;
+	transform-origin: left;
+	background: transparent;
+}
+
+.user-answer::before{
+  position: absolute;
+  content: "";
+  top: -11px;
+  right: 0;
+  height: 0;
+  width: 0;
+  border: 7px solid transparent;
+  border-bottom-width: 0px;
+  border-right-width: 0px;
+  border-top-color: var(--color-accent);
+  opacity: 40%;
+}
+.user-answer::after{
+	content: "YOUR";
+  position: absolute;
+  top: -32px;
+  right: 0;
+  font-weight: var(--font-weight2);
+  background: var(--color-accent);
+  color: #fff;
+  padding: 1px 8px;
+  font-size: 12px;
+  border-radius: 3px;
+  opacity: 70%;
+}
+
+.actual-answer{
+	height: 100%;
+	position: absolute;
+	border-radius: 10px;
+	transform-origin: left;
+	background: transparent;
+}
+
+.actual-answer::before{
+  position: absolute;
+  content: "";
+	transform: scaleY(-1);
+  top: 14px;
+  right: 0;
+  height: 0;
+  width: 0;
+  border: 7px solid transparent;
+  border-bottom-width: 0px;
+  border-right-width: 0px;
+  border-top-color: var(--color-accent);
+  opacity: 40%;
+}
+.actual-answer::after{
+	content: "ACTUAL";
+  position: absolute;
+  top: 20.2px;
+  right: 0;
+  font-weight: var(--font-weight2);
+  background: var(--color-accent);
+  color: #fff;
+  padding: 1px 8px;
+  font-size: 12px;
+  border-radius: 3px;
+  opacity: 70%;
+}
+
+.range-min{
+	position:absolute;
+	font-family: var(--font-family);
+	font-size: 12px;
+	font-weight: var(--font-weight2); 
+	left: 50px;
+	top: 381px;
+}
+.range-max{
+	position:absolute;
+	font-family: var(--font-family);
+	font-size: 12px;
+	font-weight: var(--font-weight2); 
+	left: 415px;
+	top: 381px;
 }

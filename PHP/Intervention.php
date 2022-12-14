@@ -10,6 +10,12 @@
 	if (isset($_COOKIE["Question_Number"])){
 		$currentQuestion = $_COOKIE["Question_Number"];
 	}
+	if (!isset($_COOKIE["Number_Correct"])){
+		setcookie("Number_Correct", "0", time() + (86400 * 30), "/PHP"); // 86400 = 1 day
+	}
+	if (!isset($_COOKIE["Number_Stars"])){
+		setcookie("Number_Stars", "0", time() + (86400 * 30), "/PHP"); // 86400 = 1 day
+	}
 
 	$dblink=db_connect("Estimation_Game");
     if (mysqli_connect_errno())
@@ -35,18 +41,46 @@
 			$questionAmount = mysqli_num_rows($result);
 			setcookie("Question_Amount", $questionAmount, time() + (86400 * 30), "/PHP");
 
-			$sql="Select `QuestionID`,`Question`,`Hint`,`AnswerStatement`,`Explanation`,`AnswerUnit`,`AnswerType`,`RangeMin`,`RangeMax` from `Questions` where `QuestionID` like '%$currentQuestion%'";
+			$sql="Select `QuestionID`,`Question`,`Hint`,`Answer`,`AnswerStatement`,`Explanation`,`AnswerUnit`,`AnswerType`,`RangeMin`,`RangeMax` from `Questions` where `QuestionID` like '%$currentQuestion%'";
 			$result= $dblink->query($sql)  or
 				die("Something went wrong with $sql<br>".$dblink >error);
 
 			$row = mysqli_fetch_array($result);
 
+			echo "<input type=hidden id='answer-holder' value='".$row['Answer']."'></input>";
+			echo "<input type=hidden id='type-holder' value='".$row['AnswerType']."'></input>";
+			echo "<input type=hidden id='min-holder' value='".$row['RangeMin']."'></input>";
+			echo "<input type=hidden id='max-holder' value='".$row['RangeMax']."'></input>";
+
 			echo "<dialog class='modal-box' id='modal'>";
-				echo "<br><h2>Star Rating Here</h2><br><hr>";
-				echo "<p>".$row['AnswerStatement']."</p><br>";
-				echo "<p>".$row['Explanation']."</p><br><hr>";
-				echo "<p>Number Line here</p><br><hr>";
-				echo "<button class='button close-button'>Next Question</button>";
+				echo "<br><h2>";
+				echo "Star Rating Here</h2>";
+				echo "<div class='star-box'><ul class='star-list'>
+						<li class='star' id='star-one'>
+						  &#11088;
+						</li>
+						<li class='star' id='star-two'>
+						  &#11088;
+						</li>
+						<li class='star' id='star-three'>
+						  &#11088;
+						</li>
+						<li class='star' id='star-four'>
+						  &#11088;
+						</li>
+						<li class='star' id='star-five'>
+						  &#11088;
+						</li>
+					</ul></div><hr>";
+				echo "<p class='answer-statement'>".$row['AnswerStatement']."</p><br>";
+				echo "<p class='answer-explanation'>".$row['Explanation']."</p><br><hr>";
+				echo "<br><div class='skill-bars'><div class='bar'><div class='progress-line html'><span id='user-answer' class='user-answer'></span><span id='actual-answer' class='actual-answer'></span></div></div></div><span class='range-min'>".$row['RangeMin']."</span><span class='range-max'>".$row['RangeMax']."</span>";
+				echo "<br><br><hr>";
+				if($currentQuestion==$questionAmount){
+					echo "<button class='button close-button'>Finish Quiz</button>";
+				}else{
+					echo "<button class='button close-button'>Next Question</button>";
+				}
 			echo "</dialog>";
 			echo "<h2>Question $currentQuestion out of $questionAmount</h2>";
 			echo "<hr>";
@@ -55,7 +89,7 @@
 			echo "<form method='post' id='inputForm'>";
 				echo "<br><label for='user_answer'> Answer ( In ".$row['AnswerUnit']." ) </label>";
 				echo "<input type='text' id='user_answer' name='user_answer'>";
-				if (!empty($row['AnswerType'])){
+				if (($row['AnswerType'])!="Constant"){
 					echo "<select name='answer_select' id='answer_select'>";
 						echo "<option value='Increase'>Increase</option>";
 						echo "<option value='Decrease'>Decrease</option>";
@@ -70,21 +104,22 @@
 								$QuestionCookie = "Question_$currentQuestion";
 								$TypeCookie = "Question_".$currentQuestion."_Type";
 								setcookie($QuestionCookie, $userAnswer, time() + (86400 * 30), "/PHP");
-								if (!empty($row['AnswerType'])){
+								if (($row['AnswerType'])!="Constant"){
 									setcookie($TypeCookie, $_POST['answer_select'], time() + (86400 * 30), "/PHP");
 								}else{
-									setcookie($TypeCookie, "NULL", time() + (86400 * 30), "/PHP");
+									setcookie($TypeCookie, "Constant", time() + (86400 * 30), "/PHP");
 								}
+								echo "<script modal src='../Javascript/starRating.js'></script>";
 								echo "<script modal src='../Javascript/OpenModal.js'></script>";
 							}else{
-								echo "<br><br>Please a value from ".$row['RangeMin']." to ".$row['RangeMax'];
+								echo "<p style='color:green'><br>Please a value from ".$row['RangeMin']." to ".$row['RangeMax']."</p>";
 							}
 						}else{
-							echo "<br><br>Please Enter a Number";
+							echo "<p style='color:green'><br>Please Enter a Number"."</p>";
 						}
 					}
 					else{
-						echo "<br><br>Please Enter Input";
+						echo "<p style='color:green'><br>Please Enter Input"."</p>";
 					}
 				}
 				echo "<br><br>";
