@@ -3,6 +3,7 @@ var starTwo = document.getElementById("star-two");
 var starThree = document.getElementById("star-three");
 var starFour = document.getElementById("star-four");
 var starFive = document.getElementById("star-five");
+var starText = document.getElementById("starRatingText");
 
 var answer = document.getElementById("answer-holder").value;
 var answerType = document.getElementById("type-holder").value;
@@ -33,15 +34,15 @@ function getPercent(){
 	}
 	
 	if(userAnswerType==="Increase"){
-		userWidth = (50+((userAnswer/fullLength))*100)+"%";
+		userWidth = (50+((userAnswer/fullLength)*100))+"%";
 	}else if (userAnswerType==="Decrease"){
-		userWidth = ((userAnswer/fullLength)*100)+"%";
+		userWidth = (50-((userAnswer/fullLength)*100))+"%";
 	}
 	
 	if(answerType==="Increase"){
-		actualWidth = (50+((answer/fullLength))*100)+"%";
+		actualWidth = (50+((answer/fullLength)*100))+"%";
 	}else if (answerType==="Decrease"){
-		actualWidth = ((answer/fullLength)*100)+"%";
+		actualWidth = (50-((answer/fullLength)*100))+"%";
 	}	
 	
 	document.getElementById('actual-answer').style.width = actualWidth;
@@ -49,21 +50,55 @@ function getPercent(){
 	
 	const OME = Math.abs(Math.log10(userAnswer/answer));
 	
-	if (userAnswerType === answerType){
-		if(OME < .5){
+	if(answerType === "Constant"){
+		if(OME < .2){
 			result = 5;
-			correctAmount = correctAmount+1;
-			document.cookie = "Number_Correct=" + correctAmount+";Path='/'";
-		}else if (OME < .75){
+			starText.innerHTML="Amazing Job!";
+			if(OME === 0){
+				starText.innerHTML="Perfect!";
+				correctAmount = correctAmount+1;
+				document.cookie = "Number_Correct=" + correctAmount+";Path='/'";
+			}
+		}else if (OME < .4){
+			starText.innerHTML="Great Work!";
 			result = 4;
-		}else if (OME < 1){
+		}else if (OME < .6){
+			starText.innerHTML="Alright!";
 			result = 3;
-		}else{
+		}else if (OME < .8){
+			starText.innerHTML="Good Try!";
 			result = 2;
+		}else{
+			starText.innerHTML="Better luck next time!";
+			result = 1;
 		}
-	}else{
-		result = 1;
 	}
+	else{
+		if (userAnswerType === answerType){
+			if(OME < .5){
+				result = 5;
+				starText.innerHTML="Amazing Job!";
+				if(OME === 0){
+					starText.innerHTML="Perfect!";
+					correctAmount = correctAmount+1;
+					document.cookie = "Number_Correct=" + correctAmount+";Path='/'";
+				}
+			}else if (OME < .75){
+				starText.innerHTML="Great Work!";
+				result = 4;
+			}else if (OME < 1){
+				starText.innerHTML="Alright!";
+				result = 3;
+			}else{
+				starText.innerHTML="Good Try!";
+				result = 2;
+			}
+		}else{
+			starText.innerHTML="Better luck next time!";
+			result = 1;
+		}
+	}
+	
 	starAmount = starAmount+result;
 	document.cookie = "Number_Stars=" + starAmount+";Path='/'";
 	percentage(result);

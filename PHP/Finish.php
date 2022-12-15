@@ -24,7 +24,7 @@ error_reporting(E_ALL);
 	echo "<html>";
 	echo "<head>";
 		echo "<title>Summary Page</title>";
-		echo "<meta name='description' content='Quix page for Estimation Game'>";
+		echo "<meta name='description' content='Quiz page for Estimation Game'>";
 		echo "<meta name='viewport' content='width=device-width, initial-scale=0.7'>";
 		echo "<link rel='stylesheet' href='/CSS/FinishStyle.css'>";
 	echo "</head>";

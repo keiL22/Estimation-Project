@@ -47,14 +47,19 @@
 
 			$row = mysqli_fetch_array($result);
 
+			$sql2="Select `QuestionID`,`SourceText`,`SourceLink`,`SourceName` from `Sources` where `QuestionID` like '%$currentQuestion%'";
+			$result2=$dblink->query($sql2) or
+				die("Something went wrong with $sql2<br>".$dblink->error);
+
 			echo "<input type=hidden id='answer-holder' value='".$row['Answer']."'></input>";
 			echo "<input type=hidden id='type-holder' value='".$row['AnswerType']."'></input>";
 			echo "<input type=hidden id='min-holder' value='".$row['RangeMin']."'></input>";
 			echo "<input type=hidden id='max-holder' value='".$row['RangeMax']."'></input>";
+			
 
 			echo "<dialog class='modal-box' id='modal'>";
-				echo "<br><h2>";
-				echo "Star Rating Here</h2>";
+				echo "<br>";
+				echo "<h2 id='starRatingText'>Star Rating Here</h2>";
 				echo "<div class='star-box'><ul class='star-list'>
 						<li class='star' id='star-one'>
 						  &#11088;
@@ -74,18 +79,29 @@
 					</ul></div><hr>";
 				echo "<p class='answer-statement'>".$row['AnswerStatement']."</p><br>";
 				echo "<p class='answer-explanation'>".$row['Explanation']."</p><br><hr>";
-				echo "<br><div class='skill-bars'><div class='bar'><div class='progress-line html'><span id='user-answer' class='user-answer'></span><span id='actual-answer' class='actual-answer'></span></div></div></div><span class='range-min'>".$row['RangeMin']."</span><span class='range-max'>".$row['RangeMax']."</span>";
+				echo "<br><div class='skill-bars'><div class='bar'><div class='progress-line html'><span id='user-answer' class='user-answer'></span><span id='actual-answer' class='actual-answer'></span></div></div></div><span class='range-max'>".$row['RangeMax']."</span><span class='range-min'>".$row['RangeMin']."</span>";
 				echo "<br><br><hr>";
 				if($currentQuestion==$questionAmount){
 					echo "<button class='button close-button'>Finish Quiz</button>";
 				}else{
 					echo "<button class='button close-button'>Next Question</button>";
 				}
+				echo"<br><br><hr>";
+				echo"<input class='sources-box' id='sourcesBox' type='checkbox' name='source-box'/>";
+				echo "<label class='source-label' id='sourcesLabel' for='sourcesBox' ></label>";
+				echo "<ul class='submenu'>";
+					while ($data=$result2->fetch_array(MYSQLI_ASSOC))
+					{
+						echo"<li>".$data['SourceText']."<a href='".$data['SourceLink']."' target='_blank'>".$data['SourceName']."</a><br><br></li>";
+					}
+				echo"</ul>";
 			echo "</dialog>";
+			
+
 			echo "<h2>Question $currentQuestion out of $questionAmount</h2>";
 			echo "<hr>";
 
-			echo $row['Question'];
+			echo "<p>".$row['Question']."</p>";
 			echo "<form method='post' id='inputForm'>";
 				echo "<br><label for='user_answer'> Answer ( In ".$row['AnswerUnit']." ) </label>";
 				echo "<input type='text' id='user_answer' name='user_answer'>";

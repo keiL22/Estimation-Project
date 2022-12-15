@@ -64,6 +64,11 @@ body{
 	
 }
 
+p{
+	font-weight: var(--font-weight2);
+	text-align: center;
+}
+
 .box hr{
 	border: 1px solid #E7E7E7;
 	margin-bottom: 20px;
@@ -298,18 +303,55 @@ button:hover{
 }
 
 .range-min{
-	position:absolute;
+	position:relative;
 	font-family: var(--font-family);
 	font-size: 12px;
 	font-weight: var(--font-weight2); 
-	left: 50px;
-	top: 381px;
+	left: 5px;
+	top: -32px;
 }
 .range-max{
-	position:absolute;
+	position:relative;
 	font-family: var(--font-family);
 	font-size: 12px;
 	font-weight: var(--font-weight2); 
-	left: 415px;
-	top: 381px;
+	left: 395px;
+	top: -32px;
+}
+
+.submenu{
+	padding: 0px 50px;
+	font-family: var(--font-family);
+	font-size: 12px;
+	font-weight: var(--font-weight1);
+	display: none;
+}
+
+.sources-box{
+	display: none;
+}
+
+/*position the label*/
+.source-label {
+	
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+
+.source-label:before {
+	content: "\25BC  Display Sources";
+  display: block;
+  cursor: pointer;
+}
+
+.sources-box:checked~.submenu {
+
+	display: block;
+}
+
+.sources-box:checked~.source-label:before {
+	content: "\25B2  Hide Sources";
+	display: block;
+	cursor: pointer;
 }
