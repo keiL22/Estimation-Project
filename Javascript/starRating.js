@@ -17,12 +17,12 @@ function getPercent(){
 	let userAnswerType= "";
 	let userWidth = "";
 	let actualWidth = "";
-	let starAmount = Number(getCookieValue("Number_Stars"));
 	let correctAmount = Number(getCookieValue("Number_Correct"));
 	
 	const questionNumber = Number(getCookieValue("Question_Number"));
 	const questionType = "Question_"+questionNumber+"_Type";
 	const questionAnswer = "Question_"+questionNumber;
+	const starCookie = "Star_"+questionNumber;
 	const userAnswer = getCookieValue(questionAnswer);
 	const fullLength = Math.abs(min)+Math.abs(max);
 	
@@ -98,9 +98,7 @@ function getPercent(){
 			result = 1;
 		}
 	}
-	
-	starAmount = starAmount+result;
-	document.cookie = "Number_Stars=" + starAmount+";Path='/'";
+	document.cookie =  starCookie +"="+ result+";Path='/'";
 	percentage(result);
 }
 

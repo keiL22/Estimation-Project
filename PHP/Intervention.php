@@ -13,9 +13,6 @@
 	if (!isset($_COOKIE["Number_Correct"])){
 		setcookie("Number_Correct", "0", time() + (86400 * 30), "/PHP"); // 86400 = 1 day
 	}
-	if (!isset($_COOKIE["Number_Stars"])){
-		setcookie("Number_Stars", "0", time() + (86400 * 30), "/PHP"); // 86400 = 1 day
-	}
 
 	$dblink=db_connect("Estimation_Game");
     if (mysqli_connect_errno())
@@ -33,7 +30,7 @@
 		echo "<link rel='stylesheet' href='/CSS/InterventionStyle.css'>";
 	echo "</head>";
 	echo "<body>";
-		echo "<div class='box'>";
+		
 			$sql="Select Distinct `QuestionID` from `Questions`";
 			$result= $dblink->query($sql)  or
 				die("Something went wrong with $sql<br>".$dblink >error);
@@ -58,8 +55,7 @@
 			
 
 			echo "<dialog class='modal-box' id='modal'>";
-				echo "<br>";
-				echo "<h2 id='starRatingText'>Star Rating Here</h2>";
+				echo "<div class='container-box'><br><h2 id='starRatingText'>Star Rating Here</h2>";
 				echo "<div class='star-box'><ul class='star-list'>
 						<li class='star' id='star-one'>
 						  &#11088;
@@ -76,17 +72,17 @@
 						<li class='star' id='star-five'>
 						  &#11088;
 						</li>
-					</ul></div><hr>";
-				echo "<p class='answer-statement'>".$row['AnswerStatement']."</p><br>";
-				echo "<p class='answer-explanation'>".$row['Explanation']."</p><br><hr>";
-				echo "<br><div class='skill-bars'><div class='bar'><div class='progress-line html'><span id='user-answer' class='user-answer'></span><span id='actual-answer' class='actual-answer'></span></div></div></div><span class='range-max'>".$row['RangeMax']."</span><span class='range-min'>".$row['RangeMin']."</span>";
-				echo "<br><br><hr>";
+					</ul></div></div>";
+				echo "<div class='container-box'><div class='submission-box'><p class='answer-statement'>".$row['AnswerStatement']."</p><br>";
+				echo "<p class='answer-explanation'>".$row['Explanation']."</p></div><br>";
+				echo "<div class='submission-box'><br><div class='skill-bars'><div class='bar'><div class='progress-line html'><span id='user-answer' class='user-answer'></span><span id='actual-answer' class='actual-answer'></span></div></div></div><span class='range-max'>".$row['RangeMax']."</span><span class='range-min'>".$row['RangeMin']."</span>";
+				echo "</div><br>";
 				if($currentQuestion==$questionAmount){
 					echo "<button class='button close-button'>Finish Quiz</button>";
 				}else{
 					echo "<button class='button close-button'>Next Question</button>";
 				}
-				echo"<br><br><hr>";
+				echo"<br><hr>";
 				echo"<input class='sources-box' id='sourcesBox' type='checkbox' name='source-box'/>";
 				echo "<label class='source-label' id='sourcesLabel' for='sourcesBox' ></label>";
 				echo "<ul class='submenu'>";
@@ -94,23 +90,27 @@
 					{
 						echo"<li>".$data['SourceText']."<a href='".$data['SourceLink']."' target='_blank'>".$data['SourceName']."</a><br><br></li>";
 					}
-				echo"</ul>";
+				echo"</ul></div>";
 			echo "</dialog>";
 			
-
+			echo "<div class='progress-box'>";
 			echo "<h2>Question $currentQuestion out of $questionAmount</h2>";
-			echo "<hr>";
-
-			echo "<p>".$row['Question']."</p>";
+			echo "<div class='progress-bar'><div class='progress-bar-fill' style='width:".(($currentQuestion/$questionAmount)*100)."%'></div>";
+			echo "<img style='top: -38px; left:".((($currentQuestion/$questionAmount)*100)-7)."%; position: relative; scale:0.7;' src='../Sources/Globe-Emoticon.png'></div></div>";
+			echo "<div class='box'>";
+			echo "<div class='submission-box'><p>".$row['Question']."</p></div>";
 			echo "<form method='post' id='inputForm'>";
-				echo "<br><label for='user_answer'> Answer ( In ".$row['AnswerUnit']." ) </label>";
-				echo "<input type='text' id='user_answer' name='user_answer'>";
+				echo "<br><div class='answer-col'><label for='user_answer'></label>";
 				if (($row['AnswerType'])!="Constant"){
+					echo "<input type='text' id='user_answer' name='user_answer'> % ";
 					echo "<select name='answer_select' id='answer_select'>";
 						echo "<option value='Increase'>Increase</option>";
 						echo "<option value='Decrease'>Decrease</option>";
-					echo "</select>";
+					echo " </select> in ".$row['AnswerUnit']."";
+				}else{
+					echo "<input type='text' id='user_answer' name='user_answer'> ".$row['AnswerUnit']."";
 				}
+				echo "</div>";
 				if (is_array($_POST) && !empty($_POST)) {
 					if(isset($_POST['user_answer'])){
 						

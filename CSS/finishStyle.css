@@ -34,7 +34,7 @@ body{
 }
 
 .box{
-
+	box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
 	max-width: 700px;
 	min-width: 700px;
 	background-color: #ffffff;
@@ -95,6 +95,7 @@ button:hover{
 }
 
 .star-box{
+	margin-left: 30px;
     font-family: var(--font-family);
     font-weight: var(--font-weight2);
     font-size: var(--font-size2);
@@ -125,3 +126,8 @@ button:hover{
 	color: black;
 }
 
+.container{	
+	padding: 20px;
+	border-radius: 20px;
+	box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+}

@@ -34,15 +34,24 @@ body{
 }
 
 .box{
-
+	box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
 	max-width: 550px;
 	background-color: #ffffff;
-	margin: 80px auto;
+	margin: 10px auto;
 	padding: 40px;
 	border-radius: 20px;
 }
 
-.box h2{
+.progress-box{
+	box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+	max-width: 550px;
+	background-color: #ffffff;
+	margin: 80px auto 10px auto;
+	padding: 40px;
+	border-radius: 20px;
+}
+
+h2{
 
 	font-size: var(--font-size3);
 	font-weight: var(--font-weight3);
@@ -69,13 +78,13 @@ p{
 	text-align: center;
 }
 
-.box hr{
+hr{
 	border: 1px solid #E7E7E7;
 	margin-bottom: 20px;
 }
 
 button{
-
+	display: flex;
 	font-family: 'Mitr', sans-serif;
 	font-size: 14px;
 	font-weight: var(--font-weight3);
@@ -85,7 +94,7 @@ button{
 
 	background-color: #fff;
 
-	margin: 0px 118px;
+	margin: 0px auto;
 	padding: 20px 50px;
 	border: 3px solid #9BC3F1;
 	border-radius: 20px;
@@ -119,10 +128,11 @@ button:hover{
 }
 
 .modal-box {
-	margin: 80px auto;
-	padding: 20px;
-	max-width: 500px;
-	min-width: 500px;
+	position: absolute;
+	overflow-y: auto;
+	border: none;
+	background-color: transparent;
+	margin: 48px auto;
 	border-radius: 20px;
 }
 
@@ -137,8 +147,8 @@ button:hover{
 .answer-explanation{
 	text-align: center;
 	font-family: var(--font-family);
-	font-size: var(--font-size1);
-	font-weight: var(--font-weight1);
+	font-size: var(--font-size0);
+	font-weight: var(--font-weight2);
 }
 
 
@@ -169,7 +179,7 @@ button:hover{
     color: transparent;  
     text-shadow: 0 0 0 var(--color-star-off);
     scale: 2;
-    margin: 20px 20px 40px 20px;
+    margin: 5px 20px 20px 20px;
     justify-content: center;
     align-items: center;
     display: inline-block;
@@ -307,7 +317,7 @@ button:hover{
 	font-family: var(--font-family);
 	font-size: 12px;
 	font-weight: var(--font-weight2); 
-	left: 5px;
+	left: -10px;
 	top: -32px;
 }
 .range-max{
@@ -315,7 +325,7 @@ button:hover{
 	font-family: var(--font-family);
 	font-size: 12px;
 	font-weight: var(--font-weight2); 
-	left: 395px;
+	left: 382px;
 	top: -32px;
 }
 
@@ -354,4 +364,36 @@ button:hover{
 	content: "\25B2  Hide Sources";
 	display: block;
 	cursor: pointer;
+}
+.answer-col{
+	font-size: var(--font-size0);
+	text-align: center;
+	font-weight: var(--font-weight2);
+}
+.submission-box{
+	background-color: white;
+	padding: 20px;
+	border-radius: 20px;
+	box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+}
+
+.container-box{
+	background-color: white;
+	margin: 10px auto;
+	padding: 20px;
+	max-width: 500px;
+	min-width: 500px;
+	border-radius: 20px;
+	box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+}
+
+.progress-bar{
+	border-radius: 20px;
+	height: 15px;
+	background-color: var(--color-star-off);
+}
+.progress-bar-fill{
+	border-radius: 20px;
+	height: 15px;
+	background-color: #64bc2c;
 }
