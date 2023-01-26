@@ -9,6 +9,7 @@ body{
 }
 
 *{
+	text-decoration: none;
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
@@ -24,7 +25,43 @@ body{
 	border-radius: 20px;
 }
 
+.control-box{
+	max-width: 1000px;
+	background-color: #ffffff;
+	margin: 80px auto;
+	padding: 40px;
+	border-radius: 20px;
+}
+
+p{
+	font-weight: 400;
+	font-size: 14px;
+	text-align: center;
+}
+
 .navi-box h2{
+
+	font-size: 30px;
+	font-weight: 600;
+	text-align: center;
+	text-shadow: 0 0 3px #7598BE, 0 0 3px #7598BE,
+			 0 0 3px #7598BE, 0 0 3px #7598BE,
+			 0 0 3px #7598BE, 0 0 3px #7598BE, 
+  			 0 0 3px #7598BE, 0 0 3px #7598BE,
+			 0 0 3px #7598BE, 0 0 3px #7598BE, 
+			 0 0 3px #7598BE, 0 0 3px #7598BE,
+			 0 0 3px #7598BE, 0 0 3px #7598BE,
+			 0 0 3px #7598BE, 0 0 3px #7598BE,
+			 0 0 3px #7598BE, 0 0 3px #7598BE,
+			 0 0 3px #7598BE, 0 0 3px #7598BE,
+			 0 0 3px #7598BE, 0 0 3px #7598BE;
+	color: #FFFFFF;
+	margin-bottom: 25px;
+	line-height: 20px;
+	
+}
+
+.control-box h2{
 
 	font-size: 30px;
 	font-weight: 600;
@@ -90,4 +127,28 @@ body{
 	content: url(../Sources/Globe-Emoticon.png);
 	margin-left: -130px;
 	margin-top: -15px;
+}
+
+button{
+	display: block;
+	font-family: 'Mitr', sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	color: #87B0E0;
+	text-transform: uppercase;
+	text-align: center;
+
+	background-color: #fff;
+
+	margin: 0 auto;
+	padding: 20px 50px;
+	border: 3px solid #9BC3F1;
+	border-radius: 20px;
+	transition: all 0.4s ease-in-out;
+}
+
+button:hover{
+	color: #FFFFFF;
+	background-color: #9BC3F1;
+	cursor: pointer;
 }

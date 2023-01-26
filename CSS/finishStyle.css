@@ -41,6 +41,13 @@ body{
 	margin: 80px auto;
 	padding: 40px;
 	border-radius: 20px;
+	
+	opacity: 0;
+	
+	animation-name: fadeIn;
+	animation-duration: 1.0s;
+	animation-delay: 0s;
+	animation-fill-mode: forwards;
 }
 
 .box h2{
@@ -103,6 +110,13 @@ button:hover{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+	
+	opacity: 0;
+	
+	animation-name: fadeIn;
+	animation-duration: 1.0s;
+	animation-delay: 1.8s;
+	animation-fill-mode: forwards;
 }
 
 .star-list{
@@ -130,4 +144,85 @@ button:hover{
 	padding: 20px;
 	border-radius: 20px;
 	box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+}
+
+.sources-box{
+	display: none;
+}
+
+/*position the label*/
+.source-label {
+	
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+
+.source-label:before {
+	content: "\25BC  Display Details";
+  display: block;
+  cursor: pointer;
+	
+	opacity: 0;
+	
+	animation-name: fadeIn;
+	animation-duration: 1.0s;
+	animation-delay: 1.8s;
+	animation-fill-mode: forwards;
+	
+}
+
+.sources-box:checked~.submenu {
+	display: block;
+	
+	opacity: 0;
+	
+	animation-name: fadeIn;
+	animation-duration: 1.4s;
+	animation-delay: .1s;
+	animation-fill-mode: forwards;
+}
+
+.sources-box:checked~.source-label:before {
+	content: "\25B2  Hide Details";
+	display: block;
+	cursor: pointer;
+	
+}
+
+.submenu{
+	list-style: none;
+	padding: 0px 50px;
+	font-family: var(--font-family);
+	font-size: 14px;
+	font-weight: var(--font-weight1);
+	display: none;
+	
+}
+
+.star-display{
+	margin-left: 60px;
+}
+
+.stars-obtained-box{
+	opacity: 0;
+	
+	animation-name: fadeIn;
+	animation-duration: 1.0s;
+	animation-delay: 1s;
+	animation-fill-mode: forwards;
+}
+
+.star-box{
+	opacity: 0;
+	
+	animation-name: fadeIn;
+	animation-duration: 1.0s;
+	animation-delay: 1.8s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }

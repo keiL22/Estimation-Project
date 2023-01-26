@@ -29,8 +29,23 @@ function getPercent(){
 	userAnswerType = getCookieValue(questionType);
 	
 	if(answerType==="Constant"){
-		actualWidth = ((answer/fullLength)*100)+"%";
-		userWidth = ((userAnswer/fullLength)*100)+"%";
+		if (min==0){
+			actualWidth = ((answer/fullLength)*100)+"%";
+			userWidth = ((userAnswer/fullLength)*100)+"%";
+		}
+		else{
+			if(userAnswer>0){
+				userWidth = (50+((userAnswer/fullLength)*100))+"%";
+			}else{
+				userWidth = (50-((Math.abs(userAnswer)/fullLength)*100))+"%";
+			}
+			
+			if(answer>0){
+				actualWidth = (50+((answer/fullLength)*100))+"%";
+			}else{
+				actualWidth = (50-((Math.abs(answer)/fullLength)*100))+"%";
+			}
+		}
 	}
 	
 	if(userAnswerType==="Increase"){

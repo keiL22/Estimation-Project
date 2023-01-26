@@ -27,6 +27,7 @@ body{
 }
 
 *{
+	text-decoration: none;
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
@@ -40,6 +41,7 @@ body{
 	margin: 10px auto;
 	padding: 40px;
 	border-radius: 20px;
+	transition: all 0.4s ease-in-out;
 }
 
 .progress-box{
@@ -70,12 +72,18 @@ h2{
 	color: #FFFFFF;
 	margin-bottom: 25px;
 	line-height: 20px;
-	
 }
 
 p{
 	font-weight: var(--font-weight2);
 	text-align: center;
+}
+
+.error{
+	display: flex; 
+    justify-content: center;
+	font-weight: var(--font-weight2);
+	margin-bottom: -20px;
 }
 
 hr{
@@ -84,7 +92,7 @@ hr{
 }
 
 button{
-	display: flex;
+	display: block;
 	font-family: 'Mitr', sans-serif;
 	font-size: 14px;
 	font-weight: var(--font-weight3);
@@ -94,13 +102,14 @@ button{
 
 	background-color: #fff;
 
-	margin: 0px auto;
+	margin: 0 auto;
 	padding: 20px 50px;
 	border: 3px solid #9BC3F1;
 	border-radius: 20px;
 	transition: all 0.4s ease-in-out;
 }
 input[type=submit] {
+	display: block;
     font-family: 'Mitr', sans-serif;
 	font-size: 14px;
 	font-weight: var(--font-weight3);
@@ -110,7 +119,7 @@ input[type=submit] {
 
 	background-color: #FFF;
 
-	margin: 0px 118px;
+	margin: 0 auto;
 	padding: 20px 50px;
 	border: 3px solid #9BC3F1;
 	border-radius: 20px;
@@ -134,6 +143,13 @@ button:hover{
 	background-color: transparent;
 	margin: 48px auto;
 	border-radius: 20px;
+	
+	opacity: 0;
+	
+	animation-name: fadeIn;
+	animation-duration: 1.0s;
+	animation-delay: 0s;
+	animation-fill-mode: forwards;
 }
 
 .answer-statement{
@@ -142,6 +158,13 @@ button:hover{
 	font-size: var(--font-size2);
 	font-weight: var(--font-weight2);
 	color: var(--color-accent);
+	
+	opacity: 0;
+	
+	animation-name: fadeIn;
+	animation-duration: 1.0s;
+	animation-delay: 1s;
+	animation-fill-mode: forwards;
 }
 
 .answer-explanation{
@@ -149,8 +172,21 @@ button:hover{
 	font-family: var(--font-family);
 	font-size: var(--font-size0);
 	font-weight: var(--font-weight2);
+	
+	opacity: 0;
+	
+	animation-name: fadeIn;
+	animation-duration: 1.0s;
+	animation-delay: 1.8s;
+	animation-fill-mode: forwards;
 }
 
+.question-hint{
+	text-align: center;
+	font-family: var(--font-family);
+	font-size: 14px;
+	font-weight: var(--font-weight1);
+}
 
 .star-rating{
     height: 100vh;
@@ -196,39 +232,25 @@ button:hover{
 }
 
 #star-one{
-    animation-delay: 0.0s;
-}
-#star-two{
-    animation-delay: 0.2s;
-}
-#star-three{
-    animation-delay: 0.4s;
-}
-#star-four{
     animation-delay: 0.6s;
 }
-#star-five{
+#star-two{
     animation-delay: 0.8s;
 }
-
-@keyframes starScale {
-    0%{
-        text-shadow: 0 0 0 var(--color-star-on);
-        scale: 2.0;
-    }
-    50%{
-        text-shadow: 0 0 0 var(--color-star-on);
-        scale: 2.5;
-    }
-    100%{
-        text-shadow: 0 0 0 var(--color-star-on);
-        scale: 2.0;
-    }
+#star-three{
+    animation-delay: 1.0s;
+}
+#star-four{
+    animation-delay: 1.2s;
+}
+#star-five{
+    animation-delay: 1.4s;
 }
 
 .skill-bars{
 	margin: 10px auto;
 	max-width: 330px;
+	
 }
 
 .skill-bars .bar .progress-line{
@@ -247,6 +269,7 @@ button:hover{
 	border-radius: 10px;
 	transform-origin: left;
 	background: transparent;
+	
 }
 
 .user-answer::before{
@@ -261,6 +284,7 @@ button:hover{
   border-right-width: 0px;
   border-top-color: var(--color-accent);
   opacity: 40%;
+	
 }
 .user-answer::after{
 	content: "YOUR";
@@ -274,6 +298,7 @@ button:hover{
   font-size: 12px;
   border-radius: 3px;
   opacity: 70%;
+	
 }
 
 .actual-answer{
@@ -282,6 +307,7 @@ button:hover{
 	border-radius: 10px;
 	transform-origin: left;
 	background: transparent;
+	
 }
 
 .actual-answer::before{
@@ -297,6 +323,7 @@ button:hover{
   border-right-width: 0px;
   border-top-color: var(--color-accent);
   opacity: 40%;
+
 }
 .actual-answer::after{
 	content: "ACTUAL";
@@ -310,6 +337,7 @@ button:hover{
   font-size: 12px;
   border-radius: 3px;
   opacity: 70%;
+	
 }
 
 .range-min{
@@ -319,6 +347,7 @@ button:hover{
 	font-weight: var(--font-weight2); 
 	left: -10px;
 	top: -32px;
+	
 }
 .range-max{
 	position:relative;
@@ -327,6 +356,7 @@ button:hover{
 	font-weight: var(--font-weight2); 
 	left: 382px;
 	top: -32px;
+	
 }
 
 .submenu{
@@ -356,8 +386,14 @@ button:hover{
 }
 
 .sources-box:checked~.submenu {
-
 	display: block;
+	
+	opacity: 0;
+	
+	animation-name: fadeIn;
+	animation-duration: 1.4s;
+	animation-delay: .1s;
+	animation-fill-mode: forwards;
 }
 
 .sources-box:checked~.source-label:before {
@@ -369,6 +405,13 @@ button:hover{
 	font-size: var(--font-size0);
 	text-align: center;
 	font-weight: var(--font-weight2);
+	
+	opacity: 0;
+	
+	animation-name: fadeIn;
+	animation-duration: 1.0s;
+	animation-delay: 1.8s;
+	animation-fill-mode: forwards;
 }
 .submission-box{
 	background-color: white;
@@ -396,4 +439,88 @@ button:hover{
 	border-radius: 20px;
 	height: 15px;
 	background-color: #64bc2c;
+	
+		opacity: 0;
+	
+	animation-name: fadeIn;
+	animation-duration: 1.0s;
+	animation-delay: 0s;
+	animation-fill-mode: forwards;
+}
+.bar-units{
+	text-align: center;
+    font-family: var(--font-family);
+    font-weight: var(--font-weight2);
+    font-size: var(--font-size0);
+}
+
+.answer-statement-box{
+	opacity: 0;
+	
+	animation-name: fadeIn;
+	animation-duration: 1.0s;
+	animation-delay: 1s;
+	animation-fill-mode: forwards;
+}
+
+.skill-bar-box{
+	opacity: 0;
+	
+	animation-name: fadeIn;
+	animation-duration: 1.0s;
+	animation-delay: 2.6s;
+	animation-fill-mode: forwards;
+}
+
+.user-question-box{
+	opacity: 0;
+	
+	animation-name: fadeIn;
+	animation-duration: 1.0s;
+	animation-delay: 1s;
+	animation-fill-mode: forwards;
+}
+
+.progress-globe{
+	opacity: 0;
+	
+	animation-name: fadeIn;
+	animation-duration: 1.0s;
+	animation-delay: 0s;
+	animation-fill-mode: forwards;
+}
+
+.close-button{
+	opacity: 0;
+	
+	animation-name: fadeIn;
+	animation-duration: 1.0s;
+	animation-delay: 3.4s;
+	animation-fill-mode: forwards;
+}
+
+.button-container{
+	display: flex; 
+	align-items: center;
+	justify-content: center;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes starScale {
+    0%{
+        text-shadow: 0 0 0 var(--color-star-on);
+        scale: 2.0;
+    }
+    50%{
+        text-shadow: 0 0 0 var(--color-star-on);
+        scale: 2.5;
+    }
+    100%{
+        text-shadow: 0 0 0 var(--color-star-on);
+        scale: 2.0;
+    }
 }

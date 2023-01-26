@@ -1,15 +1,22 @@
 <?php
 	include("functions.php");
 	
-	$currentQuestion=1;
+	$currentQuestion=rand(1, 12);
 	$questionAmount=0;
 	$questionText="";
+	$count=1;
 
 	if (!isset($_COOKIE["Question_Number"])){
-		setcookie("Question_Number", "1", time() + (86400 * 30), "/PHP"); // 86400 = 1 day
+		setcookie("Question_Number", $currentQuestion, time() + (86400 * 30), "/PHP"); // 86400 = 1 day
+	}
+	if (!isset($_COOKIE["Question_Count"])){
+		setcookie("Question_Count", "1", time() + (86400 * 30), "/PHP"); // 86400 = 1 day
 	}
 	if (isset($_COOKIE["Question_Number"])){
 		$currentQuestion = $_COOKIE["Question_Number"];
+	}
+	if (isset($_COOKIE["Question_Count"])){
+		$count = $_COOKIE["Question_Count"];
 	}
 	if (!isset($_COOKIE["Number_Correct"])){
 		setcookie("Number_Correct", "0", time() + (86400 * 30), "/PHP"); // 86400 = 1 day
@@ -39,7 +46,7 @@
 			$questionAmount = mysqli_num_rows($result);
 			setcookie("Question_Amount", $questionAmount, time() + (86400 * 30), "/PHP");
 
-			$sql="Select `QuestionID`,`Question`,`Hint`,`Answer`,`AnswerStatement`,`Explanation`,`AnswerUnit`,`AnswerType`,`RangeMin`,`RangeMax` from `Questions` where `QuestionID` like '%$currentQuestion%'";
+			$sql="Select `QuestionID`,`Question`,`Hint`,`Answer`,`AnswerStatement`,`Explanation`,`AnswerUnit`,`AnswerType`,`RangeMin`,`RangeMax` from `Questions` where `QuestionID` like '$currentQuestion'";
 			$result= $dblink->query($sql)  or
 				die("Something went wrong with $sql<br>".$dblink >error);
 
@@ -82,7 +89,7 @@
 				}
 				echo "<br><div class='skill-bars'><div class='bar'><div class='progress-line html'><span id='user-answer' class='user-answer'></span><span id='actual-answer' class='actual-answer'></span></div></div></div><span class='range-max'>".$row['RangeMax']."</span><span class='range-min'>".$row['RangeMin']."</span>";
 				echo "</div><br><div button-container>";
-				if($currentQuestion==$questionAmount){
+				if($count==$questionAmount){
 					echo "<button class='button close-button'>Finish Quiz</button>";
 					setcookie("Quiz_Completion", "1", time() + (86400 * 30), "/PHP");
 				}else{
@@ -103,9 +110,9 @@
 			echo "</dialog>";
 			
 			echo "<div class='progress-box'>";
-			echo "<h2>Question $currentQuestion out of $questionAmount</h2>";
-			echo "<div class='progress-bar'><div class='progress-bar-fill' style='width:".(($currentQuestion/$questionAmount)*100)."%'></div>";
-			echo "<img class='progress-globe' style='top: -38px; left:".((($currentQuestion/$questionAmount)*100)-7)."%; position: relative; scale:0.7;' src='../Sources/Globe-Emoticon.png'></div></div>";
+			echo "<h2>Question $count out of $questionAmount</h2>";
+			echo "<div class='progress-bar'><div class='progress-bar-fill' style='width:".(($count/$questionAmount)*100)."%'></div>";
+			echo "<img class='progress-globe' style='top: -38px; left:".((($count/$questionAmount)*100)-7)."%; position: relative; scale:0.7;' src='../Sources/Globe-Emoticon.png'></div></div>";
 			echo "<div class='box'>";
 			echo "<div class='submission-box user-question-box'><p>".$row['Question']."</p>";
 			if(is_null($row['Hint'])){
@@ -152,7 +159,7 @@
 										setcookie($TypeCookie, "Constant", time() + (86400 * 30), "/PHP");
 									}
 									echo "<script modal src='../Javascript/starRating.js'></script>";
-									echo "<script modal src='../Javascript/OpenModal.js'></script>";
+									echo "<script modal src='../Javascript/OpenModalRandom.js'></script>";
 								}else{
 									if (($row['AnswerType'])!="Constant"){
 										echo "<span class='error' style='color:green'><br>Please a value from 0 to ".$row['RangeMax']."</span>";
@@ -172,7 +179,7 @@
 										setcookie($TypeCookie, "Constant", time() + (86400 * 30), "/PHP");
 									}
 									echo "<script modal src='../Javascript/starRating.js'></script>";
-									echo "<script modal src='../Javascript/OpenModal.js'></script>";
+									echo "<script modal src='../Javascript/OpenModalRandom.js'></script>";
 								}else{
 									if (($row['AnswerType'])!="Constant"){
 										echo "<span class='error' style='color:green'><br>Please a value from 0 to ".$row['RangeMax']."</span>";

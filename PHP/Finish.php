@@ -3,6 +3,23 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+	$pageWasRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) && $_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0';
+
+	if($pageWasRefreshed ) {
+		if (isset($_COOKIE["Quiz_Completion"])){
+		
+			if (isset($_SERVER['HTTP_COOKIE'])) {
+				$cookies = explode(';', $_SERVER['HTTP_COOKIE']);
+				foreach($cookies as $cookie) {
+					$parts = explode('=', $cookie);
+					$name = trim($parts[0]);
+					setcookie($name, '', time()-1000, '/PHP');
+				}
+			}
+		}
+  		header('Location: ../index.html');
+	}
+
 	include("functions.php");
 	$numCorrect = 0;
 	$numQuestions = 1;
@@ -18,6 +35,12 @@ error_reporting(E_ALL);
 	$numStars=0;
 	$numStarsTotal=$numQuestions*5;
 
+	$dblink=db_connect("Estimation_Game");
+    if (mysqli_connect_errno())
+    {
+        die("Error connecting to database: ".mysqli_connect_error());   
+    }
+
 	echo "<!DOCTYPE html>";
 	
 	echo "<html>";
@@ -32,8 +55,11 @@ error_reporting(E_ALL);
 
 			echo "<h2>SUMMARY</h2>";
 			echo "<hr><div class='container'>";
-
-			echo $numCorrect." <b>Questions</b> exactly correct out of ".$numQuestions." <b>Total Questions.</b><br></div><br>";
+			for ($i = 1; $i<=$numQuestions; $i++){
+				$starCookieName = "Star_".$i;
+				$numStars=$numStars+$_COOKIE[$starCookieName];
+			}
+			echo "<div class='container stars-obtained-box'>".$numStars." <b>Stars</b> obtained out of ".$numStarsTotal." <b>Total Stars</b><br></div><br>";
 			for ($i = 1; $i<=$numQuestions; $i++){
 				$starCookieName = "Star_".$i;
 				if($_COOKIE[$starCookieName]==0){
@@ -163,29 +189,28 @@ error_reporting(E_ALL);
 						</li>
 					</ul></div>";
 				}
-				$numStars=$numStars+$_COOKIE[$starCookieName];
+				
+				$sql="Select `QuestionID`,`Question`,`AnswerStatement` from `Questions` where `QuestionID` like '%$i%'";
+				$result= $dblink->query($sql)  or
+					die("Something went wrong with $sql<br>".$dblink >error);
+
+				$row = mysqli_fetch_array($result);
+				
+				echo"<div class='star-display'><input class='sources-box' id='".$i."' type='checkbox' name='source-box'/>";
+				echo "<label class='source-label' id='sourcesLabel' for='".$i."' ></label>";
+				echo "<ul class='submenu'>";
+					echo"<li>".$row['Question']."<br></li>";
+					echo"<li><b>".$row['AnswerStatement']."</b><br></li>";
+				echo "</ul></div><br>";
 			}
-			echo "<br><div class='container'>".$numStars." <b>Stars</b> obtained out of ".$numStarsTotal." <b>Total Stars</b><br></div><br>";
+			
 		echo "</div>";
 	echo "</body>";
 echo "</html>";
 
-	if (isset($_SERVER['HTTP_COOKIE'])) {
-		$cookies = explode(';', $_SERVER['HTTP_COOKIE']);
-		foreach($cookies as $cookie) {
-			$parts = explode('=', $cookie);
-			$name = trim($parts[0]);
-			setcookie($name, '', time()-1000);
-			setcookie($name, '', time()-1000, '/');
-		}
-	}
-
-	$pageWasRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) && $_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0';
-
-
-	if($pageWasRefreshed ) {
-  		header('Location: ../index.html');
-	}
+	
+	
+	
 
 	/*$dblink=db_connect("Estimation_Game");
     if (mysqli_connect_errno())
