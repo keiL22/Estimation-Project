@@ -129,7 +129,7 @@ p{
 	margin-top: -15px;
 }
 
-button{
+.control-box button{
 	display: block;
 	font-family: 'Mitr', sans-serif;
 	font-size: 14px;
@@ -147,7 +147,7 @@ button{
 	transition: all 0.4s ease-in-out;
 }
 
-button:hover{
+.control-box button:hover{
 	color: #FFFFFF;
 	background-color: #9BC3F1;
 	cursor: pointer;
